@@ -11,6 +11,7 @@ Congressional Age Data
 ```{r load in libraries, include=FALSE}
 library(fivethirtyeight)
 library(tidyverse)
+library(ggthemes)
 ```
 
 ```{r load data set, include=FALSE}
@@ -29,7 +30,8 @@ congress_age %>%
   ggplot(aes(x = year, y = avg, group = party, color = party)) +
   geom_line() +
   ylim(40, 60) +
-  scale_color_manual(values = c('blue','red')) +
-  labs(title = "Average Age of Members of Congress", subtitle= "At start of term, 1947-2013", x = "", y = "")
+  theme_fivethirtyeight() +
+  scale_color_fivethirtyeight() +
+  labs(title = "Average Age of Members of Congress", subtitle= "At start of term, 1947-2013", source = "538 R Package")
 ```
 
