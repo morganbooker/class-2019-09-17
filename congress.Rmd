@@ -1,9 +1,35 @@
 ---
-title: "congress"
+title: "Congress"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+```
+
+Congressional Age Data
+```{r load in libraries, include=FALSE}
+library(fivethirtyeight)
+library(tidyverse)
+```
+
+```{r load data set, include=FALSE}
+data("congress_age")
+```
+
+```{r average age by party, echo=FALSE}
+# average age by party
+
+congress_age %>%
+  mutate(year = format(termstart, "%Y")) %>% 
+  filter(party %in% c("R", "D")) %>% 
+  group_by(party, year) %>% 
+  summarize(avg = mean(age)) %>% 
+  
+  ggplot(aes(x = year, y = avg, group = party, color = party)) +
+  geom_line() +
+  ylim(40, 60) +
+  scale_color_manual(values = c('blue','red')) +
+  labs(title = "Average Age of Members of Congress", subtitle= "At start of term, 1947-2013", x = "", y = "")
 ```
 
